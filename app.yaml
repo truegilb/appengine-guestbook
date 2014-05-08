@@ -5,10 +5,17 @@ module: default
 api_version: 1
 threadsafe: true
 
+#   script: guestbook.app
 handlers:
+- url: /stylesheets
+  static_dir: stylesheets
 - url: /.*
-  script: guestbook.app
+  script: guestbook_template.app
 
+
+# comment
 libraries:
 - name: webapp2
+  version: latest
+- name: jinja2
   version: latest
