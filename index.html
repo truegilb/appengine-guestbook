@@ -2,7 +2,8 @@
 {% autoescape true %}
 <html>
   <head>
-    <link type="text/css" rel="stylesheet" href="/stylesheets/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" 
+	  href="/stylesheets/bootstrap.min.css" />
   </head>
   <body>
     {% for greeting in greetings %}
@@ -11,27 +12,26 @@
       {% else %}
         An anonymous person wrote:
       {% endif %}
-      <blockquote>{{ greeting.content }} </blockquote>
+      <blockquote class="blockquote">{{ greeting.content }} </blockquote>
     {% endfor %}
 
-    <form role="form"
+    <form role="form" class="well"
 	  action="/sign?guestbook_name={{ guestbook_name }}" method="post">
-      <div class="form-group">
-	<div class="form-control">
-	  <textarea name="content" rows="3" cols="60"></textarea></div>
-	<div class="form-control">
-	  <input type="submit" value="Sign Guestbook"></div>
-      </div>
+	<textarea class="form-control" name="content" rows="3" 
+		  placeholder="Leave me a message…"></textarea>
+	<button type="submit" class="btn btn-primary">
+	  Sign Guestbook</button>
     </form>
 
-    <hr>
-
-    <form>Guestbook name:
-      <input value="{{ guestbook_name }}" name="guestbook_name"></input>
-      <input type="submit" value="switch">
+    <form class="well">
+      Guestbook name:
+      <input type="text" class="form-control" value="{{ guestbook_name }}"
+	     name="guestbook_name"></input>
+      <button type="submit" class="btn" >Switch guestbook</button>
     </form>
-
+    <!--
     <a href="{{ url|safe }}">{{ url_linktext }}</a>
+    -->
   </body>
 </html>
 {% endautoescape %}
