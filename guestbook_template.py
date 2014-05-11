@@ -93,12 +93,23 @@ class Guestbook( webapp2.RequestHandler):
         query_params = { 'guestbook_name' : guestbook_name }
         self.redirect( '/?' + urllib.urlencode( query_params))
 
-#        self.response.write('<!doctype html><html><pre>')
-#        self.response.write(cgi.escape(self.request.get('content')))
-#        self.response.write('</pre></body></html>')
+class ClearGuestbook( webapp2.RequestHandler):
+    def post(self):
+        guestbook_name = self.request.get('guestbook_name', DEFAULT_GUESTBOOK_NAME)
+        greetings_query = Greeting.query( 
+            ancestor = guestbook_key(guestbook_name))
+        greetings = greetings_query.fetch()
+
+        # grab all the rows (entities in NDB speak) and purge one-by-one
+        for greeting in greetings:
+          greeting.key.delete()
+
+        query_params = { 'guestbook_name' : guestbook_name }
+        self.redirect( '/?' + urllib.urlencode( query_params))
 
 # this variable name "app" must match what is stated in yaml file
 app = webapp2.WSGIApplication( [
     ('/', Mainpage),
     ('/sign', Guestbook),
+    ('/clear', ClearGuestbook)
 ], debug=True)

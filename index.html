@@ -2,17 +2,28 @@
 {% autoescape true %}
 <html>
   <head>
-    <link type="text/css" rel="stylesheet" 
-	  href="/stylesheets/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="/stylesheets/bootstrap.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
+    <div class="navbar navbar-default" >	
+      <div class="navbar-inner">
+	<div class="container">
+	  <ul class="nav navbar-nav">  <!-- need navbar-nav for horizontal nav -->
+	    <li class="active"><a href="#">Home</a></li>
+	    <li class><a href="#">Clear entries</a></li>
+	  </ul>
+	</div>
+      </div>
+    </div>
+
     {% for greeting in greetings %}
       {% if greeting.author %}
         <b>{{ greeting.author.nickname() }}</b> wrote:
       {% else %}
         An anonymous person wrote:
       {% endif %}
-      <blockquote class="blockquote">{{ greeting.content }} </blockquote>
+      <blockquote>[{{ greeting.date.ctime() }}] {{ greeting.content }} </blockquote>
     {% endfor %}
 
     <form role="form" class="well"
