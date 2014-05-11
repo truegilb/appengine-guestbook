@@ -2,7 +2,7 @@
 {% autoescape true %}
 <html>
   <head>
-    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+    <link type="text/css" rel="stylesheet" href="/stylesheets/bootstrap.min.css" />
   </head>
   <body>
     {% for greeting in greetings %}
@@ -14,9 +14,14 @@
       <blockquote>{{ greeting.content }} </blockquote>
     {% endfor %}
 
-    <form action="/sign?guestbook_name={{ guestbook_name }}" method="post">
-      <div><textarea name="content" rows="3" cols="60"></textarea></div>
-      <div><input type="submit" value="Sign Guestbook"></div>
+    <form role="form"
+	  action="/sign?guestbook_name={{ guestbook_name }}" method="post">
+      <div class="form-group">
+	<div class="form-control">
+	  <textarea name="content" rows="3" cols="60"></textarea></div>
+	<div class="form-control">
+	  <input type="submit" value="Sign Guestbook"></div>
+      </div>
     </form>
 
     <hr>
